@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    background-color: #DDE1E7;
+    color: #707e90;
+    overflow: hidden;
+}
