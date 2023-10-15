@@ -1,30 +1,29 @@
 import './SideBar.css';
 import { Link } from 'react-router-dom';
-import ProfileP from '../../assets/bender.jpeg';
+import Menu from '../Menu/Menu.js'
 
-function SideBar() {
+
+function SideBar(props) {
     return (
         <div className='nav-bar'>
             <div className='profile-info'>
                 <Link className='profile-picture' to="/">
                     <div className='outer-circle'>
                         <div className='inner-circle'>
-                            <img src={ProfileP} alt="profile picture"/>
+                            <img src={props.profilePicture} alt="profile picture"/>
                         </div>
                     </div>
                 </Link>
                 <div className='basic-info'>
                     <h2 className='name-surname'>
-                        Name Surname
+                        {props.firstname + " " + props.surname}
                     </h2>
                     <p className='job-title'>
-                        Full Stack Developer
+                        {props.jobTitle}
                     </p>
                 </div>
             </div>
-            <div className='site-navigation'>
-
-            </div>
+            <Menu />
         </div>
     );
 }
