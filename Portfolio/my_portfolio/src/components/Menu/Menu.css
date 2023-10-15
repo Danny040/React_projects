@@ -1,0 +1,29 @@
+.site-navigation {
+    height: 100%;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.site-navigation a {
+    color: black;
+    text-align: center;
+    padding: .4em 0;
+    width: 90%;
+    margin: 0 auto;
+    text-decoration: none;
+    font-size: 1.4em;
+    background-color: #DDE1E7;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), -4px -4px 5px rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+}
+
+.side-link:hover {
+    box-shadow: 3px 3px 5px inset rgba(0, 0, 0, 0.5), -4px -4px 5px inset rgba(255, 255, 255, 0.6);
+}
+
+a.active {
+    font-weight: bold;
+    box-shadow: 3px 3px 5px inset rgba(0, 0, 0, 0.5), -4px -4px 5px inset rgba(255, 255, 255, 0.6);
+}
