@@ -1,10 +1,9 @@
 import './Slider.css';
 
-function Slider({points, images}) {
-    
+function Slider({images, startEndPoints}) {
     return (
         <>
-            {images.slice(points[0], points[1]).map((number, index) => {
+            {images.slice(startEndPoints[0], startEndPoints[1]).map((number, index) => {
                 return (
                     <div key={index} className='work-container'>
                         <a  target="_blank" className='project-link'>

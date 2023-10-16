@@ -1,6 +1,5 @@
 import './Home.css';
-import { BsGithub, BsTelegram, BsDiscord } from 'react-icons/bs';
-import { SiLeetcode } from 'react-icons/si';
+import ContactLinks from '../ContactLinks/ContactLinks';
 
 function Home(props) {
     return (
@@ -10,28 +9,7 @@ function Home(props) {
                 <h2 className='animate__animated animate__fadeInDown animate__fast animate__delay-0.9s'>{props.person.jobTitle}</h2>
             </div>
             <div className='bottom-part animate__animated animate__fadeInDown animate__fast animate__delay-1.5s'>
-                <div className='wrapper'>
-                <a className='link-button' target="_blank" href="https://github.com/Danny040">
-                    <div>
-                        <BsGithub className='github' />
-                    </div>
-                </a>
-                <a className='link-button' target="_blank" href="">
-                    <div>
-                        <SiLeetcode className='leetcode'/>
-                    </div>
-                </a>
-                <a className='link-button' target="_blank" href="">
-                    <div>
-                        <BsTelegram className='telegram'/>
-                    </div>
-                </a>
-                <a className='link-button' target="_blank" href="">
-                    <div>
-                        <BsDiscord className='discord'/>
-                    </div>
-                </a>
-                </div>
+                <ContactLinks />
             </div>
         </div>
     );
