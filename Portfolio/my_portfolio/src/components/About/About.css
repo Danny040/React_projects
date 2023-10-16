@@ -1,0 +1,130 @@
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+}
+
+.about-part {
+    width: inherit;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-part h2 {
+    color: black;
+    margin-bottom: 20px;
+}
+
+.about-part h1 {
+    color: black;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.about-part h3 {
+    font-weight: 400;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+.about-part p {
+    font-size: 1.25em;
+}
+
+.bottom-part-wrapper {
+    width: inherit;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.education {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.education-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edu-icon {
+    color: #F56C6D;
+    font-size: 2em;
+}
+
+.stylish-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), -4px -4px 5px rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    margin-right: 20px;
+}
+
+.stylish-circle:hover {
+    box-shadow: 3px 3px 5px inset rgba(0, 0, 0, 0.5), -4px -4px 5px inset rgba(255, 255, 255, 0.6);
+}
+
+
+
+.education ol li h3 {
+    color: black;
+    margin-bottom: 5px;
+}
+
+.education ol li p {
+    margin-bottom: 5px;
+}
+
+.education ol li div {
+    display: flex;
+}
+
+.calender {
+    font-size: 1.2em;
+    color: #F56C6D;
+    margin-right: 9px;
+}
+
+.skills {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skills h3, .education-text h3 {
+    font-size: 1.55em;
+    color: black;
+}
+
+.skills ul, .education ol {
+    width: 100%;
+    margin-top: 20px;
+    list-style: none;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto;
+    grid-gap: 30px;
+}
+
+.skills ul li {
+    width: 100px;
+    padding: .5em .2em;
+    color: #F56C6D;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 3px 3px 5px inset rgba(0, 0, 0, 0.5), -4px -4px 5px inset rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+}
+
+.education ol {
+    list-style-type: upper-roman;
+}
