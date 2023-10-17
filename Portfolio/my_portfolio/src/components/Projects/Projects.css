@@ -1,6 +1,10 @@
 .container h2 {
-    color: black;
+    color: var(--light-mode-hl);
     font-size: 1.6em;
+}
+
+#dark .container h2 {
+    color: var(--dark-mode-hl);
 }
 
 .gallery {
@@ -30,6 +34,10 @@
     margin-left: 30px;
 }
 
+#dark .left-arrow, #dark .right-arrow {
+    color: var(--dark-mode-hl);
+}
+
 .left-arrow, .right-arrow {
     display: flex;
     justify-content: center;
@@ -38,7 +46,7 @@
     width: 40px;
     height: 40px;
     font-size: 1.5em;
-    color: black;
+    color: var(--light-mode-hl);
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), -4px -4px 5px rgba(255, 255, 255, 0.6);
     border-radius: 5px;
 }

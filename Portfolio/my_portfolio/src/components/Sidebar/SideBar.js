@@ -5,7 +5,7 @@ import Menu from '../Menu/Menu.js'
 
 function SideBar(props) {
     return (
-        <div className='nav-bar'>
+        <div className='nav-bar' id={props.id}>
             <div className='profile-info'>
                 <Link className='profile-picture' to="/">
                     <div className='outer-circle'>
@@ -23,7 +23,7 @@ function SideBar(props) {
                     </p>
                 </div>
             </div>
-            <Menu />
+            <Menu id={props.id}/>
         </div>
     );
 }

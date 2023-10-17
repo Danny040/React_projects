@@ -6,10 +6,15 @@ import Home from './Home/Home.js';
 import About from './About/About.js';
 import Projects from './Projects/Projects.js';
 import Contact from './Contact/Contact';
-
+import { useState } from 'react';
 
 
 function App() {
+  const [theme, setTheme] = useState("light");
+  function toggleTheme() {
+    console.log("ok");
+    setTheme((current)=>(current === "light" ? "dark" : "light"));
+  };
   // defining some valus
   const person = {name: "Name", surname: "Surname", jobTitle: "Job Title"};
   const skills = ["HTML", "CSS", "JavaScript", "React", "Node.js"];
@@ -18,11 +23,11 @@ function App() {
 
     return (
         <Routes>
-          <Route path="/" element={<Layout person={person} />}>
-            <Route index element={<Home person={person} />} />
-            <Route path="/about" element={<About person={person} skills={skills} education={education} />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
+          <Route path="/" element={<Layout id={theme} person={person} toggleTheme={toggleTheme} />}>
+            <Route index element={<Home id={theme} person={person} />} />
+            <Route path="/about" element={<About id={theme} person={person} skills={skills} education={education} />} />
+            <Route path="/projects" element={<Projects id={theme} />} />
+            <Route path="/contact" element={<Contact id={theme} />} />
           </Route>
         </Routes>
     );

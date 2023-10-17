@@ -1,3 +1,12 @@
+:root {
+    --light-mode-bg: #DDE1E7;
+    --light-mode-c: #707e90;
+    --light-mode-hl: #000;
+    --dark-mode-bg: #2A2D2E;
+    --dark-mode-c: #9db1ca;
+    --dark-mode-hl: #fff;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +16,7 @@
 body {
     height: 100vh;
     font-family: 'Raleway', sans-serif;
-    background-color: #DDE1E7;
-    color: #707e90;
+    background-color: var(--light-mode-bg);
+    color: var(--light-mode-c);
     overflow: hidden;
 }

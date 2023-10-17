@@ -20,7 +20,7 @@ function About(props) {
     );
 
     return (
-        <div className='container'>
+        <div className='container' id={props.id}>
             <div className='about-part animate__animated animate__fadeInDown animate__slow'>
                 <h2>About Me</h2>
                 <h1>{props.person.name + " " + props.person.surname}</h1>

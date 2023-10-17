@@ -16,7 +16,11 @@
 
 .top-part h1 {
     font-size: 4em;
-    color: black;
+    color: var(--light-mode-hl);
+}
+
+#dark .top-part h1 {
+    color: var(--dark-mode-hl);
 }
 
 .top-part h2 {
