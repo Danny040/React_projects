@@ -12,9 +12,13 @@
 }
 
 .about-part h2 {
-    color: black;
+    color: var(--light-mode-hl);
     margin-bottom: 20px;
 }
+
+#dark .container h1, #dark .container h2, #dark .container h3, #dark .container p {
+    color: var(--dark-mode-hl);
+} 
 
 .about-part h1 {
     color: black;
@@ -75,7 +79,7 @@
 
 
 .education ol li h3 {
-    color: black;
+    color: var(--light-mode-hl);
     margin-bottom: 5px;
 }
 
@@ -102,7 +106,7 @@
 
 .skills h3, .education-text h3 {
     font-size: 1.55em;
-    color: black;
+    color: var(--light-mode-hl);
 }
 
 .skills ul, .education ol {

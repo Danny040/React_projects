@@ -1,19 +1,19 @@
 import './Menu.css';
 import { NavLink } from 'react-router-dom';
 
-function Menu() {
+function Menu(props) {
     return (
         <nav className='site-navigation'>
-            <NavLink exact="true" to="/" activeclassname="active" className="side-link">
+            <NavLink id={props.id} exact="true" to="/" activeclassname="active" className="side-link">
                 Home
             </NavLink>
-            <NavLink exact="true" to="/about" activeclassname="active" className="side-link">
+            <NavLink id={props.id} exact="true" to="/about" activeclassname="active" className="side-link">
                 About
             </NavLink>
-            <NavLink exact="true" to="/projects" activeclassname="active" className="side-link">
+            <NavLink id={props.id} exact="true" to="/projects" activeclassname="active" className="side-link">
                 Projects
             </NavLink>
-            <NavLink exact="true" to="/contact" activeclassname="active" className="side-link">
+            <NavLink id={props.id} exact="true" to="/contact" activeclassname="active" className="side-link">
                 Contact
             </NavLink>
         </nav>

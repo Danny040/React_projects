@@ -1,5 +1,5 @@
 .nav-bar {
-    background-color: #DDE1E7;
+    background-color: var(--light-mode-bg);
     height: 90%;
     width: 300px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), -4px -4px 5px rgba(255, 255, 255, 0.6);
@@ -7,6 +7,10 @@
     margin: auto 30px;
     display: flex;
     flex-direction: column;
+}
+
+#dark .nav-bar, #dark .nav-bar h2{
+    color: var(--dark-mode-hl);
 }
 
 .profile-info {
@@ -46,7 +50,7 @@
 }
 
 .name-surname {
-    color: black;
+    color: var(--light-mode-hl);
     margin-top: 5%;
 }
 

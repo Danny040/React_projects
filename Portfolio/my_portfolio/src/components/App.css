@@ -1,0 +1,7 @@
+#light {
+    background-color: var(--light-mode-bg);
+}
+
+#dark {
+    background-color: var(--dark-mode-bg);
+}
