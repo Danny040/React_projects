@@ -5,25 +5,30 @@ import { useState } from 'react';
 
 function Projects(props) {
     const images = ["1", "2", "3", "4", "5", "6", "7", "8"];
-    const [startEnd, setStartEnd] = useState([0, 4]);
+    const [startEnd, setStartEnd] = useState([0, 3]);
+
 
     const nextSlide = () => {
-        if (startEnd[1] === images.length) {
-            setStartEnd([0, 4]);
+        if (startEnd[1] >= images.length) {
+            setStartEnd([0, 3]);
         } 
         else {
             setStartEnd(startEnd.map((item)=>{
-                return item + 4;
+                return item + 3;
             }));
         }
     };
     const prevSlide = () => {
-        if (startEnd[0] === 0) {
-            setStartEnd([images.length-4, images.length])
+        if (startEnd[0] <= 0) {
+            console.log("startEnd[0] <= 0");
+            setStartEnd([images.length-3, images.length]);
         } 
         else {
             setStartEnd(startEnd.map((item)=>{
-                return item - 4;
+                if (item - 3 < 0){
+                    return 0;
+                }
+                return item - 3;
             }));
         }
     };

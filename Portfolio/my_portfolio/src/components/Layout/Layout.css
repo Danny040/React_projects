@@ -3,12 +3,13 @@
     height: 100vh;
     display: flex;
     margin: auto;
+    justify-content: center;
 }
 
 .page {
     background-color: var(--light-mode-bg);
     height: 90%;
-    width: 60%;
+    width: 100%;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), -4px -4px 5px rgba(255, 255, 255, 0.6);
     /* border-radius: 10px; */
     margin: auto 0;

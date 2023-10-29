@@ -12,7 +12,6 @@ import { useState } from 'react';
 function App() {
   const [theme, setTheme] = useState("light");
   function toggleTheme() {
-    console.log("ok");
     setTheme((current)=>(current === "light" ? "dark" : "light"));
   };
   // defining some valus
