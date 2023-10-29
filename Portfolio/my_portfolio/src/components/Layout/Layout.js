@@ -1,25 +1,26 @@
 import './Layout.css';
-import SideBar from '../Sidebar/SideBar';
-import ProfileP from '../../assets/bender.jpeg';
-import {BsFillSunFill, BsFillMoonFill} from 'react-icons/bs';
-import { Outlet } from 'react-router-dom';
+import DesktopLayout from './DesktopLayout';
+import MobileLayout from './MobileLayout';
+import { useState, useEffect } from 'react';
 
 function Layout(props) {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleWindowResize = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handleWindowResize);
+
+        // cleaning up 
+        return () => window.removeEventListener("resize", handleWindowResize);
+    }, []);
+
+    const breakPoint = 1200;
+
+
     return (
-        <div className='layout' id={props.id}>
-            <SideBar id={props.id} firstname={props.person.name} surname={props.person.surname} jobTitle={props.person.jobTitle} profilePicture={ProfileP} />
-            <div className='page'>
-                <Outlet />
-            </div>
-            <div className='night-day-switch-wrapper'>
-                <button className='night-day-switch' id={props.id} onClick={() => props.toggleTheme()}>
-                    {props.id === "light" ? <BsFillMoonFill className='moon-sun'/> :
-                    <BsFillSunFill className='moon-sun'/>
-                    }
-                    
-                </button>
-            </div>
-        </div>
+        <>
+            {width < breakPoint ? <MobileLayout id={props.id} person={props.person} toggleTheme={props.toggleTheme} /> : <DesktopLayout id={props.id} person={props.person} toggleTheme={props.toggleTheme} />}
+        </>
     );
 }
 

@@ -48,6 +48,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .education-text {
@@ -102,6 +103,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .skills h3, .education-text h3 {
@@ -131,4 +133,45 @@
 
 .education ol {
     list-style-type: upper-roman;
+}
+
+@media only screen and (max-width: 620px) {
+    .container {
+        overflow-y: auto;
+    }
+
+    .about-part {
+        height: auto;
+    }
+
+    .about-part h2 {
+        margin-bottom: 10px;
+    }
+
+    .about-part h1 {
+        font-size: 2em;
+        margin-bottom: 5px;
+    }
+    
+    .about-part h3 {
+        font-size: 1.1em;
+        margin-bottom: 7px;
+    }
+    
+    .about-part p {
+        font-size: 1em;
+    }
+
+    .bottom-part-wrapper {
+        height: auto;
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .education {
+        z-index: 5;
+        margin-top: 70px;
+        margin-bottom: 10px;
+    }
+
 }
