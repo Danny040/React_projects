@@ -84,6 +84,7 @@
     color: #5865F2;
 }
 
+/* small screens */
 @media only screen and (max-width: 620px) {
     .top-part {
         text-align: center;

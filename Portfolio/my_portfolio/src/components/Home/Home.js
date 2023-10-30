@@ -9,7 +9,7 @@ function Home(props) {
                 <h2 className='animate__animated animate__fadeInDown animate__fast animate__delay-0.9s'>{props.person.jobTitle}</h2>
             </div>
             <div className='bottom-part animate__animated animate__fadeInDown animate__fast animate__delay-1.5s'>
-                <ContactLinks />
+                <ContactLinks urls={props.urls} />
             </div>
         </div>
     );

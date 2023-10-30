@@ -135,6 +135,57 @@
     list-style-type: upper-roman;
 }
 
+/*large screens */
+@media only screen and (min-width: 1399px) {
+    .bottom-part-wrapper {
+        height: 90%;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media only screen and (min-width: 1699px) {
+    .education {
+        width: 100%;
+    }
+
+    .about-part p {
+        font-size: 1.5em;
+    }
+
+    .education ol li h3 {
+        font-size: 1.5em;
+    }
+    
+    .education ol li p {
+        font-size: 1.4em;
+    }
+
+    .education-text h3, .skills h3 {
+        font-size: 2em;
+    }
+    
+    .calender {
+        font-size: 1.5em;
+    }
+
+    .dates {
+        font-size: 1.5em;
+    }
+
+    .skills {
+        width: 100%;
+    }
+
+    .skills ul li {
+        width: 200px;
+        font-size: 1.5em;
+    }
+
+}
+
+
+/* small screens */
 @media only screen and (max-width: 620px) {
     .container {
         overflow-y: auto;
