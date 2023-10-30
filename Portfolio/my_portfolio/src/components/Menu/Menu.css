@@ -32,6 +32,7 @@ a.active {
     box-shadow: 3px 3px 5px inset rgba(0, 0, 0, 0.5), -4px -4px 5px inset rgba(255, 255, 255, 0.6);
 }
 
+/* small screens */
 @media only screen and (max-height: 668px) {
     .site-navigation {
         height: 40%;

@@ -12,7 +12,7 @@ function About(props) {
             <p>{item.name}</p>
             <div>
                 <SlCalender className='calender'/> 
-                <div>
+                <div className='dates'>
                     {item.period}
                 </div>
             </div>
