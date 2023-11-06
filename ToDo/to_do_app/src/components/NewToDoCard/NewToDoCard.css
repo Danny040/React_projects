@@ -1,0 +1,53 @@
+.to-do-card {
+    width: 90%;
+    height: 380px;
+    padding: 1.3em;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin: auto;
+    position: relative;
+}
+
+.close-btn {
+    color: #0E6EFD;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    font-size: 2em;
+}
+
+.close-btn:hover {
+    color: rgb(244, 61, 61);
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #0E6EFD;
+}
+
+.btn {
+    width: 100%;
+    border:none;
+}
+
+.add-btn {
+    width: 200px;
+    text-transform: uppercase;
+}
+
+
+.text-area {
+    resize: none;
+}
+
+@media only screen and (max-width: 556px) {
+    .to-do-card {
+        width: 95%;
+    }
+}
