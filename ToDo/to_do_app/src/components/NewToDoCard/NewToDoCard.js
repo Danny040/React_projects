@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 
 function NewToDoCard({ active, changeActive, todos, setTodos }) {
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('There is no description.');
+    const [description, setDescription] = useState('');
     const toDoId = uuidv4();
 
     const handleNameChange = (e) => {
@@ -22,8 +22,9 @@ function NewToDoCard({ active, changeActive, todos, setTodos }) {
         setTodos([...todos, {name: name, description: description, id: toDoId, completed: false}]);
         changeActive('hide');
         setName('');
-        setDescription('There is no description.');
+        setDescription('');
     };
+    
     return (
         <div className={`new-card ${active}`}>
         <Form className='to-do-card' onSubmit={submitHandler}>
