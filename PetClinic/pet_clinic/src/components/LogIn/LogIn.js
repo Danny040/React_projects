@@ -8,43 +8,26 @@ import Box from '@mui/material/Box';
 import LoginIcon from '@mui/icons-material/Login';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Pet Clinic
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+export default function SignIn({defaultTheme}) {
+  const [user, setUser] = useState({});
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme({ 
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#81c784',
-    },
-    secondary: {
-      main: '#ab47bc',
-    },
+  const logInHandle = () => {
+    axios.post("http://localhost:4000/login", 
+    user).then((response) => {
+      let data = response.data;
+      console.log(data.access_token);
+    }).catch(console.log(Error));
   }
-});
 
-export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    setUser({email: data.get('email'), password: data.get('password')});
+    logInHandle();
   };
 
   return (
@@ -96,7 +79,6 @@ export default function SignIn() {
             </Button>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
