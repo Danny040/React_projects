@@ -1,9 +1,14 @@
-import LogIn from '../LogIn/LogIn';
+import { Outlet } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import NavBar from '../NavBar/NavBar';
 
-function Layout() {
+function Layout({defaultTheme}) {
     return (
         <>
-            <LogIn />
+            <NavBar defaultTheme={defaultTheme} />
+            <Box sx={{margin: 5}}>
+                <Outlet />
+            </Box>
         </>
     );
 }
