@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import { createTheme } from "@mui/material";
 import Home from './Home/Home';
 import ErrorPage from './ErrorPage/ErrorPage';
+import UserPage from "./UserPage/UserPage";
 
 const defaultTheme = createTheme({ 
   palette: {
@@ -25,6 +26,7 @@ function App() {
         <Route path='/' element={<Layout defaultTheme={defaultTheme} />}>
           <Route index element={<Home defaultTheme={defaultTheme}/>} />
           <Route path='/login' element={<LogIn defaultTheme={defaultTheme}/>} />
+          <Route path='/user' element={<UserPage />}/>
           <Route path='*' element={<ErrorPage />} />
         </Route>
       </Routes>
