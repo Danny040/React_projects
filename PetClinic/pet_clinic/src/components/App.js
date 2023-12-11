@@ -26,7 +26,7 @@ function App() {
         <Route path='/' element={<Layout defaultTheme={defaultTheme} />}>
           <Route index element={<Home defaultTheme={defaultTheme}/>} />
           <Route path='/login' element={<LogIn defaultTheme={defaultTheme}/>} />
-          <Route path='/user' element={<UserPage />}/>
+          <Route path='/user' element={<UserPage defaultTheme={defaultTheme}/>}/>
           <Route path='*' element={<ErrorPage />} />
         </Route>
       </Routes>

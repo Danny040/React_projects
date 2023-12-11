@@ -6,8 +6,9 @@ import Box from '@mui/material/Box';
 import LoginIcon from '@mui/icons-material/Login';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
 import { ThemeProvider } from '@mui/material/styles';
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AuthContext from '../../context/AuthProvider';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -15,28 +16,15 @@ import axios from 'axios';
 const LOGIN_URL = 'http://localhost:4000/login';
 
 export default function SignIn({defaultTheme}) {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [user, setUser] = useState('');
   const [psw, setPsw] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const userRef = useRef();
   
-  // useEffect(()=>{
-  //   userRef.current.focus();
-  // }, [])
 
   useEffect(()=>{
     setErrorMessage('');
   }, [user, psw]);
-
-  // function logInHandle() {
-  //   axios.post("http://localhost:4000/login", 
-  //   user).then((response) => {
-  //     let data = response.data;
-  //     console.log(data.access_token);
-  //   }).catch(console.log(Error));
-  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,8 +41,6 @@ export default function SignIn({defaultTheme}) {
     } catch (err) {
       if (!err.response) {
         setErrorMessage('No responce from the server.');
-      } else if (err.response.status === 400) {
-        setErrorMessage('Missing Email address or password.');
       } else if (err.response.status === 401) {
         setErrorMessage('Unauthorised.');
       } else {
@@ -128,6 +114,10 @@ export default function SignIn({defaultTheme}) {
               </Button>
             </Box>
           </Box>
+          {errorMessage !== '' ? 
+          <Box>
+            <Alert severity="error">{errorMessage}</Alert>
+          </Box> : <></>}
         </Container>
       </ThemeProvider>
      );

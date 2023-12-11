@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,8 +6,13 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthProvider';
+import { useContext } from 'react';
 
-export default function NavBar({defaultTheme}) {
+
+export default function NavBar({defaultTheme, logOutHandler}) {
+  const { auth } = useContext(AuthContext);
+
   return (
     <ThemeProvider theme={defaultTheme}>
     <Box sx={{ flexGrow: 1 }}>
@@ -25,12 +29,18 @@ export default function NavBar({defaultTheme}) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Pet Clinic
           </Typography>
-          <Link to='/'>
-            <Button color="inherit" sx={{color: '#fafafa'}} >Home</Button>
-          </Link>
-          <Link to='/login'>
-            <Button color="inherit" sx={{color: '#fafafa'}}>Login</Button>
-          </Link>
+          
+          {auth.accessToken === undefined ? <>
+            <Link to='/'>
+              <Button color="inherit" sx={{color: '#fafafa'}} >Home</Button>
+            </Link>
+            <Link to='/login'>
+              <Button color="inherit" sx={{color: '#fafafa'}}>LogIn</Button>
+            </Link> 
+          </> : 
+          <>
+          <Button color="inherit" sx={{color: "#fafafa"}} onClick={logOutHandler}>LogOut</Button>
+          </> }
         </Toolbar>
       </AppBar>
     </Box>
