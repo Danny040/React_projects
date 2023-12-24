@@ -24,6 +24,7 @@ export default function UserPage({defaultTheme}) {
     const [status, setStatus] = useState('');
     const [visits, setVisits] = useState([]);
     const [flag, setFlag] = useState(0);
+    const [petId, setPetId] = useState();
     const doctorsAccess = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTUxNjIzO TAyMn0.0_MKcjJoHX-Vsjb4vVlWZLZMY-45nMQ22MTXUCAQgng";
 
     const getPets = async () => {   
@@ -54,7 +55,6 @@ export default function UserPage({defaultTheme}) {
             });
             setVisits(response.data);
             setFlag(2);
-            console.log(response.data);
         } catch(error) {
             console.log(error)
         } 
@@ -69,14 +69,14 @@ export default function UserPage({defaultTheme}) {
                     return <PetCard key={index} pet={pet} />
                 }
             }) );
-            case 2: return (<VisitCard />);
-            case 3: return (<PetInfo />);
+            case 2: return (visits.map((visit, index) => {return <VisitCard key={index} visit={visit} />}));
+            case 3: return (<PetInfo petId={petId} />);
         }
     }
 
     if(isLoggedIn) {
         return (
-            <MyContext.Provider value={{flag, setFlag}}>
+            <MyContext.Provider value={{flag, setFlag, setPetId}}>
                 <ThemeProvider theme={defaultTheme}>
                 <Container>
                     <Box>
