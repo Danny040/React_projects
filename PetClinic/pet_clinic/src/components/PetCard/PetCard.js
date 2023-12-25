@@ -5,39 +5,56 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AuthContext from '../../context/AuthProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MyContext } from '../UserPage/UserPage';
+import axios from 'axios';
 
-export default function PetCard({pet}) {
+export default function PetCard({pet, doctorsAccess}) {
     const { auth } = useContext(AuthContext);
-    const {flag, setFlag, setPetId} = useContext(MyContext)
-    
+    const {flag, setFlag, morePetInfo, setMorePetInfo} = useContext(MyContext);
+
+
+    const getMoreInfo = async () => {
+        setFlag(3); 
+        try {
+            const response = await axios.get(`http://localhost:4000/pets/${pet.id}`, {
+                headers: {
+                    "Authorization": "Bearer " + auth.accessToken
+                }
+            });
+            setMorePetInfo(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+        
+    }
+
     if (flag == 3) {
         return (
             <Grid item xs={12}>
             <Card>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                    Name: {pet.name}
+                    Name: {morePetInfo.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Pet ID: {pet.id}
+                        Pet ID: {morePetInfo.id}
                     </Typography> 
                     <Typography variant="body2" color="text.secondary">
-                        Owner ID: {pet.ownerId}
+                        Owner ID: {morePetInfo.ownerId}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Pet Type: {pet.petType}
+                        Pet Type: {morePetInfo.petType}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Last Visit: {pet.dob}
+                        Date of Birth: {morePetInfo.dob}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Status: {pet.status}
+                        Status: {morePetInfo.status}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" sx={{color: "#81c784"}} >Edit</Button>
+                    {auth.accessToken === doctorsAccess ? <Button size="small" sx={{color: "#81c784"}} >Edit</Button> : <></>}
                     <Button size="small" sx={{color: "#81c784"}} >Add visit</Button>
                 </CardActions>
             </Card>
@@ -56,14 +73,14 @@ export default function PetCard({pet}) {
                 Pet Type: {pet.petType}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                Last Visit: {pet.dob}
+                Date of Birth: {pet.dob}
             </Typography>
             <Typography variant="body2" color="text.secondary">
                 Status: {pet.status}
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small" sx={{color: "#81c784"}} onClick={()=>{setFlag(3); setPetId(pet.id)}}>Detailed Info</Button>
+            <Button size="small" sx={{color: "#81c784"}} onClick={()=>getMoreInfo()}>Detailed Info</Button>
         </CardActions>
         </Card>
     </Grid>

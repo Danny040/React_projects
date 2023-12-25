@@ -33,6 +33,7 @@ export default function SignIn({defaultTheme}) {
         email: user,
         password: psw
       });
+      console.log(response.data);
       const accessToken = response.data.access_token;
       setAuth({user: user, password: psw, accessToken: accessToken});
       setUser('');
