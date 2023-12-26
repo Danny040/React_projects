@@ -21,7 +21,10 @@ export default function AddNewPet() {
     const [dob, setDob] = useState(''); // dod - date of birth
     const [petType, setPetType] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const currentDate = new Date();
+    console.log(currentDate);
 
+    // there is a problem with ownerId property. how to obtain it
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -94,6 +97,7 @@ export default function AddNewPet() {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
                     <DatePicker
+                    maxDate={dayjs(currentDate)}
                     label="Date of Birth"
                     value={dob}
                     onChange={(date) => setDob(date.$d.toISOString().slice(0, 9) + (Number(date.$d.toISOString()[9])+1))}
