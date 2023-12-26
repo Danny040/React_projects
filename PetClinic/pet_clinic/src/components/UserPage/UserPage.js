@@ -8,10 +8,9 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -44,7 +43,10 @@ export default function UserPage({defaultTheme}) {
     }    
 
     const handleStatus = (event) => {
-        setStatus(event.target.value);
+        if (status === 'alive') {
+            return setStatus('');
+        }
+        return setStatus(event.target.value);
     }
 
     const getVisits = async () => {
@@ -66,7 +68,8 @@ export default function UserPage({defaultTheme}) {
             case 1: return (pets.map((pet, index)=>{
                 if(pet.status === status) {
                     return <PetCard key={index} pet={pet} />
-                } else if (status === '' || status === 'all') {
+                } 
+                else if (status === '') {
                     return <PetCard key={index} pet={pet} />
                 }
             }) );
@@ -90,24 +93,13 @@ export default function UserPage({defaultTheme}) {
                             justifyContent: 'space-evenly'
                         }}>
                             {
-                                auth.accessToken === doctorsAccess ? <Box sx={{minWidth: '120px'}}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={status}
-                                    label="Status"
-                                    onChange={handleStatus}
-                                    >
-                                    <MenuItem value='alive'>Alive</MenuItem>
-                                    <MenuItem value='deceased'>Deceased</MenuItem>
-                                    <MenuItem value='missing'>Missing</MenuItem>
-                                    <MenuItem value='other'>Other</MenuItem>
-                                    <MenuItem value='all'>All</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box> : <></>
+                                auth.accessToken === doctorsAccess ? 
+                                <FormGroup>
+                                    <FormControlLabel
+                                    label="Status: alive" 
+                                    control={<Checkbox value="alive" onChange={handleStatus} name="alive" />}
+                                    />
+                                </FormGroup> : <></>
                             }
                             <Button variant="outlined" onClick={getPets}>Get Pets</Button>
                             {auth.accessToken === doctorsAccess ? <Button variant="outlined" onClick={getVisits}>Upcoming visits</Button>
