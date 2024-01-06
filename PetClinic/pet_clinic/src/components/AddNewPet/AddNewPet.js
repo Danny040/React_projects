@@ -22,7 +22,6 @@ export default function AddNewPet() {
     const [petType, setPetType] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const currentDate = new Date();
-    console.log(currentDate);
 
     // there is a problem with ownerId property. how to obtain it
     const handleSubmit = async (e) => {
@@ -38,6 +37,7 @@ export default function AddNewPet() {
                     "Authorization": "Bearer " + auth.accessToken
                 }
             })
+            console.log(response.data);
         } catch (err) {
             if(!err.response) {
                 setErrorMessage("No response from a server");
@@ -114,7 +114,7 @@ export default function AddNewPet() {
                 label="Pet's type"
                 type="text"
                 id="petType"
-                // autoComplete="current-password"
+                autoComplete="off"
               />
               <Button
                 type="submit"
