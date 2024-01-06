@@ -9,6 +9,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -20,13 +22,13 @@ import dayjs from 'dayjs';
 
 export default function PetCard({pet, doctorsAccess}) {
     const { auth } = useContext(AuthContext);
+    const currentDate = new Date();
     const {flag, setFlag, morePetInfo, setMorePetInfo} = useContext(MyContext);
     const [petStatus, setPetStatus] = useState(morePetInfo.status);
     const [isEdit, setIsEdit] = useState(false);
     const [isNewVisit, setIsNewVisit] = useState(false);
     const [visitDate, setVisitDate] = useState('');
     const [visitComment, setVisitComment] = useState('');
-    const currentDate = new Date();
 
 
     const getMoreInfo = async () => {
@@ -67,13 +69,53 @@ export default function PetCard({pet, doctorsAccess}) {
     }
 
     const sendNewVisit = async () => {
+        if (doctorsAccess === auth.accessToken && visitDate !== '') {
+        try {
+            const response = await axios.post(`http://localhost:4000/visits`, {
+                date: visitDate,
+                comment: visitComment,
+                petId: morePetInfo.id
+            }, {
+                headers: {
+                    "Authorization": "Bearer " + auth.accessToken
+                }
+            })
+            console.log(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (visitDate !== '' && visitComment !== '') {
+        try {
+            const response = await axios.post(`http://localhost:4000/visits`, {
+                date: visitDate,
+                comment: visitComment,
+                petId: morePetInfo.id
+            }, {
+                headers: {
+                    "Authorization": "Bearer " + auth.accessToken
+                }
+            })
+            console.log(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
         setIsNewVisit(false);
-        console.log(visitDate);
+        setVisitComment('');
+        setVisitDate('');
     }
 
-    // useEffect(()=>{
-    //     setPetStatus(morePetInfo.status);
-    // }, []);
+    const getVisitDate = (date) => {
+        try { 
+            setVisitDate(date.$d.toISOString().slice(0, 9) + (Number(date.$d.toISOString()[9])+1));
+        } catch (err) {
+            return;
+        }
+    }
+
+    const handleVisitComment = (e) => {
+        setVisitComment(e.target.value);
+    }
 
 
     if (flag == 3) {
@@ -116,16 +158,33 @@ export default function PetCard({pet, doctorsAccess}) {
                         Status: {petStatus}
                     </Typography>}
                     {isNewVisit ? 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DateTimePicker']}>
-                        <DateTimePicker
-                        minDate={dayjs(currentDate)}
-                        label="Visit Date"
-                        // value={visitDate}
-                        onChange={(date) => setVisitDate(date.$d.toISOString().slice(0, 9) + (Number(date.$d.toISOString()[9])+1))}
+                    <Box>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['DateTimePicker']}>
+                            <DateTimePicker
+                            minDate={dayjs(currentDate)}
+                            label="Visit Date"
+                            onChange={(date)=> getVisitDate(date)}
+                            required
+                            />
+                        </DemoContainer>
+                        </LocalizationProvider> 
+                        <Box>
+                        <TextField
+                            value={visitComment}
+                            onChange={handleVisitComment}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="v-comment"
+                            label="Visit Comment"
+                            name="comment"
+                            autoComplete="off"
+                            autoFocus
                         />
-                    </DemoContainer>
-                    </LocalizationProvider> : <></>}
+                        </Box>
+                    </Box>
+                    : <></>}
                 </CardContent>
                 <CardActions>
                     {(auth.accessToken === doctorsAccess && isEdit) ? <Button size="small" sx={{color: "#81c784"}} onClick={handleApply}>Apply</Button> : <Button size="small" sx={{color: "#81c784"}} onClick={handleEdit}>Edit</Button>}
