@@ -15,6 +15,10 @@ import AuthContext from '../../context/AuthProvider';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
+const ownersIds = {'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.QAtAc6Imr2-NDhRpPcobJfjA20vh_bDk3wMhL_-46Fw': 1,
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.DA59WWIUeZ-4v4XVyrbXqd9z1I-YlZRCz45oCuyU2T0': 2,
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0Iiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.zqF-TVZor-FIGK_o3_5exzGJy1MuwkscYLjyS9pawVM': 3}
+
 export default function AddNewPet() {
     const { auth } = useContext(AuthContext);
     const [petName, setPetName] = useState('');
@@ -26,12 +30,16 @@ export default function AddNewPet() {
     // there is a problem with ownerId property. how to obtain it
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (petName === '' && dob === '' && petType === '') {
+          alert('Please, fill all the fields.');
+          return;
+        }
         try {
             const response = await axios.post('http://localhost:4000/pets', {
                 name: petName,
                 petType: petType,
                 dob: dob,
-                ownerId: auth.accessToken
+                ownerId: ownersIds[auth.accessToken]
             }, {
                 headers: {
                     "Authorization": "Bearer " + auth.accessToken
