@@ -24,7 +24,7 @@ export default function PetCard({pet, doctorsAccess}) {
     const { auth } = useContext(AuthContext);
     const currentDate = new Date();
     const {flag, setFlag, morePetInfo, setMorePetInfo} = useContext(MyContext);
-    const [petStatus, setPetStatus] = useState(morePetInfo.status);
+    const [petStatus, setPetStatus] = useState('');
     const [isEdit, setIsEdit] = useState(false);
     const [isNewVisit, setIsNewVisit] = useState(false);
     const [visitDate, setVisitDate] = useState('');
@@ -40,6 +40,7 @@ export default function PetCard({pet, doctorsAccess}) {
                 }
             });
             setMorePetInfo(response.data);
+            
         } catch (err) {
             console.log(err);
         }
@@ -100,6 +101,10 @@ export default function PetCard({pet, doctorsAccess}) {
             console.log(err);
         }
     }
+    else {
+        alert('Please, fill all the necessary fields.');
+        return;
+    }
         setIsNewVisit(false);
         setVisitComment('');
         setVisitDate('');
@@ -117,6 +122,13 @@ export default function PetCard({pet, doctorsAccess}) {
         setVisitComment(e.target.value);
     }
 
+    const handlePetStatus = (e) => {
+        setPetStatus(e.target.value);
+    }
+
+    useEffect(()=> {
+        setPetStatus(morePetInfo.status);
+    }, [morePetInfo]);
 
     if (flag == 3) {
         return (
@@ -146,11 +158,12 @@ export default function PetCard({pet, doctorsAccess}) {
                             id="demo-simple-select"
                             value={petStatus}
                             label="Status"
-                            onChange={(e)=>setPetStatus(e.target.value)}
+                            onChange={handlePetStatus}
                             >
                             <MenuItem value='alive'>Alive</MenuItem>
                             <MenuItem value='deceased'>Deceased</MenuItem>
                             <MenuItem value='missing'>Missing</MenuItem>
+                            <MenuItem value='other'>Other</MenuItem>
                             </Select>
                         </FormControl>
                     : 
@@ -165,7 +178,6 @@ export default function PetCard({pet, doctorsAccess}) {
                             minDate={dayjs(currentDate)}
                             label="Visit Date"
                             onChange={(date)=> getVisitDate(date)}
-                            required
                             />
                         </DemoContainer>
                         </LocalizationProvider> 
@@ -174,7 +186,6 @@ export default function PetCard({pet, doctorsAccess}) {
                             value={visitComment}
                             onChange={handleVisitComment}
                             margin="normal"
-                            required
                             fullWidth
                             id="v-comment"
                             label="Visit Comment"
