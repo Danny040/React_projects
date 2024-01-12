@@ -19,7 +19,7 @@ const ownersIds = {'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwicm9sZSI
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.DA59WWIUeZ-4v4XVyrbXqd9z1I-YlZRCz45oCuyU2T0': 2,
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0Iiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.zqF-TVZor-FIGK_o3_5exzGJy1MuwkscYLjyS9pawVM': 3}
 
-export default function AddNewPet() {
+export default function AddNewPet({getPets}) {
     const { auth } = useContext(AuthContext);
     const [petName, setPetName] = useState('');
     const [dob, setDob] = useState(''); // dod - date of birth
@@ -46,6 +46,9 @@ export default function AddNewPet() {
                 }
             })
             console.log(response.data);
+            if (response.data.message === "Pet successfully created") {
+              getPets();
+            }
         } catch (err) {
             if(!err.response) {
                 setErrorMessage("No response from a server");
