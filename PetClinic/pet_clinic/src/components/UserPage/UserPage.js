@@ -75,7 +75,7 @@ export default function UserPage({defaultTheme}) {
             }) );
             case 2: return (visits.map((visit, index) => {return <VisitCard key={index} visit={visit} />}));
             case 3: return (<PetInfo doctorsAccess={doctorsAccess} />);
-            case 4: return (<AddNewPet />)
+            case 4: return (<AddNewPet getPets={getPets}/>)
         }
     }
 

@@ -70,40 +70,29 @@ export default function PetCard({pet, doctorsAccess}) {
     }
 
     const sendNewVisit = async () => {
-        if (doctorsAccess === auth.accessToken && visitDate !== '') {
-        try {
-            const response = await axios.post(`http://localhost:4000/visits`, {
-                date: visitDate,
-                comment: visitComment,
-                petId: morePetInfo.id
-            }, {
-                headers: {
-                    "Authorization": "Bearer " + auth.accessToken
-                }
-            })
-            console.log(response.data);
-        } catch (err) {
-            console.log(err);
-        }
-    } else if (visitDate !== '' && visitComment !== '') {
-        try {
-            const response = await axios.post(`http://localhost:4000/visits`, {
-                date: visitDate,
-                comment: visitComment,
-                petId: morePetInfo.id
-            }, {
-                headers: {
-                    "Authorization": "Bearer " + auth.accessToken
-                }
-            })
-            console.log(response.data);
-        } catch (err) {
-            console.log(err);
-        }
+        if (doctorsAccess === auth.accessToken && visitDate === '') {
+            alert("Please, choose the date.");
+            return;
+
+    } else if (doctorsAccess !== auth.accessToken && (visitComment === '' || visitDate === '')) {
+        alert("Please, choose a date and write a comment.");
+        return;
     }
     else {
-        alert('Please, fill all the necessary fields.');
-        return;
+        try {
+            const response = await axios.post(`http://localhost:4000/visits`, {
+                date: visitDate,
+                comment: visitComment,
+                petId: morePetInfo.id
+            }, {
+                headers: {
+                    "Authorization": "Bearer " + auth.accessToken
+                }
+            })
+            console.log(response.data);
+        } catch (err) {
+            console.log(err);
+        }
     }
         setIsNewVisit(false);
         setVisitComment('');
@@ -124,6 +113,10 @@ export default function PetCard({pet, doctorsAccess}) {
 
     const handlePetStatus = (e) => {
         setPetStatus(e.target.value);
+    }
+
+    const handleCancel = () => {
+        setIsNewVisit(false);
     }
 
     useEffect(()=> {
@@ -175,7 +168,10 @@ export default function PetCard({pet, doctorsAccess}) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimePicker']}>
                             <DateTimePicker
+                            ampm={false}
                             minDate={dayjs(currentDate)}
+                            minTime={dayjs(`2022-02-14T09:00`)}
+                            maxTime={dayjs(`2022-02-14T17:00`)}
                             label="Visit Date"
                             onChange={(date)=> getVisitDate(date)}
                             />
@@ -198,8 +194,12 @@ export default function PetCard({pet, doctorsAccess}) {
                     : <></>}
                 </CardContent>
                 <CardActions>
-                    {(auth.accessToken === doctorsAccess && isEdit) ? <Button size="small" sx={{color: "#81c784"}} onClick={handleApply}>Apply</Button> : <Button size="small" sx={{color: "#81c784"}} onClick={handleEdit}>Edit</Button>}
-                    {isNewVisit ? <Button size="small" sx={{color: "#81c784"}} onClick={sendNewVisit}>Send visit</Button> : <Button size="small" sx={{color: "#81c784"}} onClick={handleAddVisit}>Make visit</Button>}
+                    {auth.accessToken !== doctorsAccess ? <></> : (auth.accessToken === doctorsAccess && isEdit) ? <Button size="small" sx={{color: "#81c784"}} onClick={handleApply}>Apply</Button> : <Button size="small" sx={{color: "#81c784"}} onClick={handleEdit}>Edit</Button>}
+                    {isNewVisit ? <>
+                    <Button size="small" sx={{color: "#81c784"}} onClick={handleCancel}>Cancel</Button>
+                    <Button size="small" sx={{color: "#81c784"}} onClick={sendNewVisit}>Send visit</Button>
+                    </> 
+                    : <Button size="small" sx={{color: "#81c784"}} onClick={handleAddVisit}>Make visit</Button>}
                 </CardActions>
             </Card>
         </Grid>
