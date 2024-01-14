@@ -49,6 +49,21 @@ export default function UserPage({defaultTheme}) {
         return setStatus(event.target.value);
     }
 
+    const sortUpcomingVisits = (upcomingVisits) => {
+        const sortedVisits = upcomingVisits;
+        sortedVisits.sort((a, b)=>{
+            const dateA = Date.parse(a.date);
+            const dateB = Date.parse(b.date);
+            if (dateA > dateB) {
+                return 1;
+            }
+            if (dateA < dateB) {
+                return -1;
+            }
+            return 0;
+        })
+    }
+
     const getVisits = async () => {
         try{
             const response = await axios.get('http://localhost:4000/visits', {
@@ -56,6 +71,7 @@ export default function UserPage({defaultTheme}) {
                     "Authorization": "Bearer " + auth.accessToken
                 }
             });
+            sortUpcomingVisits(response.data);
             setVisits(response.data);
             setFlag(2);
         } catch(error) {

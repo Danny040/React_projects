@@ -29,6 +29,7 @@ export default function PetCard({pet, doctorsAccess}) {
     const [isNewVisit, setIsNewVisit] = useState(false);
     const [visitDate, setVisitDate] = useState('');
     const [visitComment, setVisitComment] = useState('');
+    const [allUpcomingVisits, setAllUpcomingVisits] = useState([]);
 
 
     const getMoreInfo = async () => {
@@ -89,7 +90,6 @@ export default function PetCard({pet, doctorsAccess}) {
                     "Authorization": "Bearer " + auth.accessToken
                 }
             })
-            console.log(response.data);
         } catch (err) {
             console.log(err);
         }
@@ -99,9 +99,29 @@ export default function PetCard({pet, doctorsAccess}) {
         setVisitDate('');
     }
 
+    useEffect(() => {
+            const response = axios.get('http://localhost:4000/visits', {
+                headers: {
+                    "Authorization": "Bearer " + auth.accessToken
+                }
+            }).
+            then(function (response) {
+                setAllUpcomingVisits(response.data);
+            });
+
+    }, [flag]);
+
     const getVisitDate = (date) => {
         try { 
-            setVisitDate(date.$d.toISOString().slice(0, 9) + (Number(date.$d.toISOString()[9])+1));
+            let upcomingVisit = date.$H + ':' + (date.$m > 6 ? date.$m : '0'+date.$m) + ' ' + date.$d.toISOString().slice(0, 9) + (Number(date.$d.toISOString()[9]));
+            for (let item of  allUpcomingVisits) { 
+                if (item.date === upcomingVisit) {
+                    alert('Please, choose another date.\nThis one has been booked already.');
+                    setVisitDate('');
+                    return;
+                }
+            }
+            setVisitDate(upcomingVisit);
         } catch (err) {
             return;
         }
