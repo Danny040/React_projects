@@ -1,2 +1,3 @@
 # React-projects
-Just React projects for practice sake. 
+Full Stack project: Pet Clinic (React JS, Node JS, Express)
+React projects: To do app; Portfolio website;
